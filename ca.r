@@ -47,3 +47,33 @@ d <- as.data.frame(d)
 d[,2] <- as.logical(d[,2])
 d[,3] <- as.factor(d[,3])
 
+#7.1
+plot(0,xlim=c(-3,3), ylim=c(7,13))
+#Horizontal
+arrows(x0=-2.5, y0=10,x1=-1, y1=10)
+arrows(x0=2.5, y0=10,x1=1, y1=10)
+#left arrows
+arrows(x0=-2.5, y0=7.5, x1=-1, y1=9.5)
+arrows(x0=-2.5, y0=12.5, x1=-1, y1=10.5)
+#right arrows
+arrows(x0=2.5, y0=7.5, x1=1, y1=9.5)
+arrows(x0=2.5, y0=12.5, x1=1, y1=10.5)
+#Vertical/Horizontal lines
+abline(v=-3, lty=2)
+abline(v=3, lty=2)
+abline(h=7, lty=2)
+abline(h=13, lty=2)
+#Text
+text(x=0, y=10, label="SOMETHING\nPROFOUND")
+
+
+#Part b
+height <- c(55,85,75,42,93,63,58,75,89,67)
+sex <- factor(c("female","male","male","female","male","male","female","male","male","female"))
+weight <- c(161,185,174,154,188,178,170,167,181,178)
+
+plotData <- data.frame(height, weight, sex)
+plot(0, xlim=c(min(plotData$weight), max(plotData$weight)), ylim=c(min(plotData$height), max(plotData$height)),
+     xlab="Weight", ylab="Height", main="Weight/Height grouped by Sex")
+points(plotData$weight[plotData$sex=="male"], plotData$height[plotData$sex=="male"], col="blue")
+points(plotData$weight[plotData$sex=="female"], plotData$height[plotData$sex=="female"], col="red")
