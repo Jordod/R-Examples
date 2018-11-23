@@ -1,0 +1,37 @@
+---
+title: "Pokemon Project"
+output: word_document
+---
+```{r setup, echo=FALSE, message=FALSE}
+library(readxl)
+library(dplyr)
+library(moments)
+#Type duplicates means that there's 2 entries for a pokemon if it has 2 types
+all_pokemon_type_duplicates <- read_excel("pokemon.xlsx")
+all_pokemon_type_duplicates <- unique(all_pokemon_type_duplicates[,1:10])
+names(all_pokemon_type_duplicates)[1] = "Number"
+
+#No types
+all_pokemon <- all_pokemon_type_duplicates[!duplicated(all_pokemon_type_duplicates$Number),]
+all_pokemon$Type <- NULL
+```
+
+## Jordan
+#### Does having higher Attack have an impact on the Pokemon's other statistics?
+```{r JordanHist, echo=FALSE, comment=''}
+hist(all_pokemon$Attack, main="Attack Distribution", xlab="Attack")
+cat('Skewness:', skewness(all_pokemon$Attack))
+cat('Kurtosis:', kurtosis(all_pokemon$Attack))
+shapiro.test(all_pokemon$Attack)
+```
+######Based on the Skewness, Kurtosis and results of the Shapiro test we can see that attack is not normally distributed.
+```{r JordanCor, echo=FALSE, comment=''}
+plot(all_pokemon$Attack, all_pokemon$Defense, xlab="Attack", ylab="Defense", pch=20)
+cat('Correlation: ', cor(all_pokemon$Attack, all_pokemon$Defense))
+
+plot(all_pokemon$Attack, all_pokemon$HP, xlab="Attack", ylab="HP", pch=20)
+cat('Correlation: ', cor(all_pokemon$Attack, all_pokemon$HP))
+
+plot(all_pokemon$Attack, all_pokemon$Speed, xlab="Attack", ylab="Speed", pch=20)
+cat('Correlation: ', cor(all_pokemon$Attack, all_pokemon$Speed))
+```
